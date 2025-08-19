@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <title>Nybodergaarden</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Sidemenu */
+    .sidemenu {
+      width: 200px;
+      background: #2c3e50;
+      color: #ecf0f1;
+      padding-top: 20px;
+      flex-shrink: 0;
+    }
+    .sidemenu h2 {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    .sidemenu button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: none;
+      border: none;
+      color: inherit;
+      font-size: 16px;
+      text-align: left;
+      cursor: pointer;
+    }
+    .sidemenu button:hover {
+      background: #34495e;
+    }
+
+    /* Indhold */
+    .content {
+      flex-grow: 1;
+      padding: 20px;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidemenu -->
+  <div class="sidemenu">
+    <h2>Sprog</h2>
+    <button onclick="showContent('da')">Dansk</button>
+    <button onclick="showContent('en')">English</button>
+  </div>
+
+  <!-- Indhold -->
+  <div class="content">
+    <div id="content-da">
+      <h1>Velkommen til Nybodergaarden</h1>
+      <p>Dette er den danske version af hjemmesiden. Her kan du skrive al din tekst på dansk.</p>
+    </div>
+    <div id="content-en" class="hidden">
+      <h1>Welcome to Nybodergaarden</h1>
+      <p>This is the English version of the website. Here you can write all your English text.</p>
+    </div>
+  </div>
+
+  <script>
+    function showContent(lang) {
+      document.getElementById('content-da').classList.add('hidden');
+      document.getElementById('content-en').classList.add('hidden');
+      document.getElementById('content-' + lang).classList.remove('hidden');
+    }
+
+    // Default: Dansk
+    showContent('da');
+  </script>
+
+</body>
+</html>
