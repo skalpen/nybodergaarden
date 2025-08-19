@@ -9,55 +9,41 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      display: flex;
-      height: 100vh;
-    }
-
-    /* Sidemenu */
-    .sidemenu {
-      width: 200px;
-      background: #2c3e50;
-      color: #ecf0f1;
-      padding-top: 20px;
-      flex-shrink: 0;
-    }
-    .sidemenu h2 {
-      text-align: center;
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-    .sidemenu button {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      background: none;
-      border: none;
-      color: inherit;
-      font-size: 16px;
-      text-align: left;
-      cursor: pointer;
-    }
-    .sidemenu button:hover {
-      background: #34495e;
-    }
-
-    /* Indhold */
-    .content {
-      flex-grow: 1;
       padding: 20px;
     }
-    .hidden {
-      display: none;
+
+    /* Flag-container */
+    .flags {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .flags img {
+      width: 40px;
+      height: auto;
+      cursor: pointer;
+      border: 2px solid transparent; /* Ingen border som default */
+      border-radius: 4px;
+      transition: border 0.2s ease;
+    }
+
+    .flags img.active {
+      border: 2px solid #333; /* Aktivt flag har border */
+    }
+
+    /* Tekst */
+    .content h1 {
+      margin-top: 0;
     }
   </style>
 </head>
 <body>
 
-  <!-- Sidemenu -->
-  <div class="sidemenu">
-    <h2>Sprog</h2>
-    <button onclick="showContent('da')">Dansk</button>
-    <button onclick="showContent('en')">English</button>
+  <!-- Flag-menu -->
+  <div class="flags">
+    <img id="flag-da" src="https://flagcdn.com/w40/dk.png" alt="Dansk" class="active">
+    <img id="flag-en" src="https://flagcdn.com/w40/gb.png" alt="English">
   </div>
 
   <!-- Indhold -->
@@ -66,21 +52,34 @@
       <h1>Velkommen til Nybodergaarden</h1>
       <p>Dette er den danske version af hjemmesiden. Her kan du skrive al din tekst på dansk.</p>
     </div>
-    <div id="content-en" class="hidden">
+    <div id="content-en" style="display:none;">
       <h1>Welcome to Nybodergaarden</h1>
       <p>This is the English version of the website. Here you can write all your English text.</p>
     </div>
   </div>
 
   <script>
-    function showContent(lang) {
-      document.getElementById('content-da').classList.add('hidden');
-      document.getElementById('content-en').classList.add('hidden');
-      document.getElementById('content-' + lang).classList.remove('hidden');
+    const flagDa = document.getElementById('flag-da');
+    const flagEn = document.getElementById('flag-en');
+    const contentDa = document.getElementById('content-da');
+    const contentEn = document.getElementById('content-en');
+
+    function setLanguage(lang) {
+      if (lang === 'da') {
+        contentDa.style.display = 'block';
+        contentEn.style.display = 'none';
+        flagDa.classList.add('active');
+        flagEn.classList.remove('active');
+      } else {
+        contentDa.style.display = 'none';
+        contentEn.style.display = 'block';
+        flagEn.classList.add('active');
+        flagDa.classList.remove('active');
+      }
     }
 
-    // Default: Dansk
-    showContent('da');
+    flagDa.addEventListener('click', () => setLanguage('da'));
+    flagEn.addEventListener('click', () => setLanguage('en'));
   </script>
 
 </body>
