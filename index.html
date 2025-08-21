@@ -159,27 +159,36 @@
   </div>
 
   <script>
-    const langs = ["da", "en", "de", "it", "es", "fr"];
+  const langs = ["da", "en", "it", "fr", "de", "es"];
 
-    function setLanguage(lang) {
-      // Skjul alt indhold
-      langs.forEach(l => {
-        document.getElementById("content-" + l).style.display = "none";
-        document.getElementById("flag-" + l).classList.remove("active");
-      });
-      // Vis valgt indhold
-      document.getElementById("content-" + lang).style.display = "block";
-      document.getElementById("flag-" + lang).classList.add("active");
-    }
-
-    // Tilføj click-events
+  function setLanguage(lang) {
+    // Skjul alt indhold og fjern active fra flag
     langs.forEach(l => {
-      document.getElementById("flag-" + l).addEventListener("click", () => setLanguage(l));
+      document.getElementById("content-" + l).style.display = "none";
+      document.getElementById("flag-" + l).classList.remove("active");
     });
 
+    // Vis valgt indhold og marker flag
+   document.getElementById("content-" + lang).style.display = "block";
+    document.getElementById("flag-" + lang).classList.add("active");
+
+    // Gem valgt sprog i localStorage
+    localStorage.setItem("preferredLanguage", lang);
+  }
+
+  // Tilføj click-events til alle flag
+  langs.forEach(l => {
+    document.getElementById("flag-" + l).addEventListener("click", () => setLanguage(l));
+  });
+
+  // Tjek om der allerede er gemt et sprogvalg
+  const savedLang = localStorage.getItem("preferredLanguage");
+  if (savedLang && langs.includes(savedLang)) {
+    setLanguage(savedLang);
+  } else {
     // Default: dansk
     setLanguage("da");
-  </script>
-
+  }
+</script>
 </body>
 </html>
